@@ -794,3 +794,26 @@
     if(['ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(-1);}
   });
 </script>
+
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var rawTo = params.get('to') || 'INTERNAL';
+  var to = rawTo.slice(0,40).replace(/[^\w\u4e00-\u9fa5\-\. ]/g,'');
+  var d = new Date();
+  var stamp = d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  var label = 'CONFIDENTIAL \u00b7 ' + to + ' \u00b7 ' + stamp;
+
+  var tag = document.createElement('div');
+  tag.id = 'wm-tag';
+  tag.textContent = label;
+  Object.assign(tag.style, {
+    position: 'fixed', top: '18px', right: '18px', zIndex: '99999', pointerEvents: 'none',
+    background: 'rgba(20,18,16,0.55)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)',
+    color: 'rgba(255,255,255,0.88)', fontFamily: '"DM Sans", sans-serif', fontSize: '11px',
+    fontWeight: '500', letterSpacing: '0.06em', padding: '6px 11px', borderRadius: '20px',
+    whiteSpace: 'nowrap'
+  });
+  document.body.appendChild(tag);
+})();
+</script>
